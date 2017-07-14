@@ -1,5 +1,6 @@
 """
-Code created by Christian Flores
+Code created by Christian Flores,
+adapted by F. Alarcon
 """
 
 #------------------------------------------------------------------------------------------------
@@ -21,16 +22,18 @@ import scipy.ndimage.measurements as meas
 import glob
 import os
 import math
+import astropy.constants as const
 
 #constants in cgs units
 #--------------------------------------------------------------------------------
-#h=6.6260755e-27
-c1=2.9979245e10
-#m_e=9.1093897e-28
-#q_e=4.80320425e-10
+h = const.h.cgs.value	        # Planck's constant
+c1 = const.c.cgs.value          # spped of light
 
-g1=5							#level 2 rotational degenerancy
-g2=7							#level 3 rotational
+m_e = const.m_e.cgs.value       # electron mass
+q_e = const.e.value				# electron charge
+
+g1 = 5							#level 2 rotational degenerancy
+g2 = 7							#level 3 rotational
 
 ## g1=3
 ## g2=5
@@ -39,7 +42,7 @@ mmass_12CO = 27.99491461956 				#molecular mass of 12CO in g/mol
 mmass_13CO = 28.9982694574				#molecular mass of 13CO in g/mol
 mmass_C18O = 29.99916100 					#molecular mass of C18O in g/mol
 
-avog=6.0221413e+23					#avogadro number mol^-1
+avog = 6.0221413e+23					#avogadro number mol^-1
 
 #-----------------------------------------------------------------------------
 #
@@ -47,16 +50,18 @@ avog=6.0221413e+23					#avogadro number mol^-1
 #
 #-----------------------------------------------------------------------------
 def cross_section(name):
-
+	"""
+	Cross section in cm^2
+	"""
 	if name=="C18O":
-		nu=rest_freq_C18O				#C18O rest frequency
-		A21=A_C18
+		nu = rest_freq_C18O				#C18O rest frequency
+		A21 = A_C18
 	elif name=="12CO":
-		nu=rest_freq_12CO				#12CO rest frequency
-		A21=A_C12
+		nu = rest_freq_12CO				#12CO rest frequency
+		A21 = A_C12
 	elif name=="13CO":
-		nu=rest_freq_13CO				#13CO rest frequency
-		A21=A_C13
+		nu = rest_freq_13CO				#13CO rest frequency
+		A21 = A_C13
 	# B21=(c**2/(2*h*nu**3)) * A21
 	# B12=(g2/g1)*B21
 	# f12=B12*h*nu*m_e*c/(4*math.pi**2 *q_e**2)
@@ -66,7 +71,7 @@ def cross_section(name):
 
 #-----------------------------------------------------------------------------
 #
-#molecular mass of molecules in Kg
+#molecular mass of molecules in g
 #
 #-----------------------------------------------------------------------------
 def molecular_mass(name):
@@ -78,7 +83,7 @@ def molecular_mass(name):
 		m = mmass_13CO
 	else:
 		m = mmass_12CO
-	return m*1e-3/avog
+	return m/avog
 
 #-----------------------------------------------------------------------------
 #

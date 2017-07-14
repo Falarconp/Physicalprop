@@ -7,6 +7,8 @@ import numpy as np
 import astropy.io.fits as pf
 import math
 import sys
+import astropy.units as u
+import astropy.constants as const
 #-----------------------------------------------------------------------------
 #-----------------------------------------------------------------------------
 #
@@ -17,24 +19,28 @@ import sys
 #
 #constants in mks system
 #
-#-----------------------------------------------------------------------------
+#-------------------------------------------------S----------------------------
 #incli = 152.0*math.pi/180.0					#Disk inclination
 incli = 0.
 
 
 PA = 24.00*math.pi/180.0
 
-# constants in SI units
-h=6.62606957*10**(-34)          # [Jxs] Planck's constant
-c=2.99792458*10**8                 # [m/s] light speed
-k=1.3806488*10**(-23)               # [J/K] Boltzmann's constant
-rest_freq_C18O= 219.56036e9					#C18O rest frequency
-rest_freq_12CO= 230.53800e9					#12CO rest frequency
-rest_freq_13CO= 220.39868e9					#13CO rest frequency
+# constants in cgs units
 
-A_C18=6.011e-07						#Einstein Coefficients in s^-1
-A_C13=6.038e-07
-A_C12=6.910e-07
+h = const.h.cgs.value
+c = const.c.cgs.value
+k = const.k_B.cgs.value
+
+rest_freq_C18O = 329330580193.9937				#C18O rest frequency
+rest_freq_12CO = 345796018978.6035					#12CO rest frequency
+rest_freq_13CO = 330587993021.5317				#13CO rest frequency
+
+A_C18 = 2.172e-06						#Einstein Coefficients in s^-1
+A_C13 = 2.181E-06
+A_C12 = 2.497e-06
+
+##6.011e-07
 
 
 ###### Transition 2-1
